@@ -63,6 +63,10 @@ use Cake\Network\Request;
 use Cake\Routing\DispatcherFactory;
 use Cake\Utility\Inflector;
 use Cake\Utility\Security;
+use Cake\Event\EventManager;
+use Burzum\FileStorage\Lib\FileStorageUtils;
+use Burzum\FileStorage\Lib\StorageManager;
+use Burzum\FileStorage\Event\LocalFileStorageListener;
 
 /**
  * Read configuration file and inject configuration into various
@@ -220,3 +224,6 @@ Type::build('date')
 Type::build('datetime')
     ->useImmutable()
     ->useLocaleParser();
+
+$listener = new LocalFileStorageListener();
+EventManager::instance()->on($listener);
